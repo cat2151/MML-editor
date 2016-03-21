@@ -9,6 +9,8 @@
     <script type='text/javascript' src='jquery.js'></script>
     <script type='text/javascript' src='siopm.js'></script>
     <script type='text/javascript' src='lzbase62.min.js'></script>
+    <script src="https://minipop.github.io/sionicjs/demo/pico.min.js"></script>
+    <script src="https://minipop.github.io/sionicjs/dist/sionic.js"></script>
 
     <style type="text/css">
     textarea {
@@ -29,6 +31,7 @@
         ></textarea>
         <br/>
         <br/>
+        <button ng-show="isiPhone()" ng-click='play()'>再生</button>
         <button ng-click='reverseOctave()'>オクターブ上下反転</button>
         <br/>
         <br/>
@@ -37,8 +40,9 @@
       </div>
       <br/>
       <span>MMLフォーマット:
-        <select>
-          <option>SiON (すたどんたんでお馴染み)</option>
+        <select ng-model="mmlFormat" ng-change="generate()">
+          <option value="sion">SiON (すたどんたんでお馴染み)</option>
+          <option value="sionic">Pico.js + Sionic.js</option>
         </select>
       </span>
     </div>
