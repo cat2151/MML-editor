@@ -10,8 +10,9 @@ http://cat2151.github.io/MML-editor/#?p=uDritZeglkEVuAtkrisSrijsntAslYIrguDrgsME
 
 # FLASH
 FLASHが使えない環境でも鳴ります。
-（Sionic.jsを利用）
+（Sionic.jsとpico.jsを利用）
 
 ---
 Powered by [SiON](https://github.com/keim/SiON)
-and [Sionic.js](https://github.com/minipop/sionicjs)
+and [Sionic.js](https://github.com/minipop/sionicjs/)
+and [pico.js](https://github.com/mohayonao/pico.js/)
