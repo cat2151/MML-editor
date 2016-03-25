@@ -89,6 +89,12 @@ function($scope, $location, $timeout, GeneratorService) {
     $scope.generate();
   }
 
+  $scope.setTemplateToInputText = function() {
+    $scope.p.inputText = $scope.mmlTemplate;
+    $scope.generate();
+  };
+
+
   SIOPM.onLoad = function() {
     if (angular.isString($scope.p.inputText)) {
       $timeout(function() {

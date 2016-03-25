@@ -45,6 +45,13 @@
           <option value="sionic">Pico.js + Sionic.js</option>
         </select>
       </span>
+      <br/>
+      <span>MMLテンプレート:
+        <select ng-model="mmlTemplate" ng-change="setTemplateToInputText()">
+          <option value="cde">ドレミ</option>
+          <option value="c;e;g">ドミソの和音</option>
+        </select>
+      </span>
     </div>
 
     <hr>
