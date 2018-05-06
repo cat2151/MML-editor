@@ -6,13 +6,14 @@ function($scope, $location, $timeout, GeneratorService) {
   $scope.generatedMml = "なし";
   $scope.mmlFormat = "sion";
   $scope.iPhoneReady = false;
-
+  $scope.isPlayFromUrl = false;
 
   // URLから取得 [用途] URLだけでMMLを受け取れるようにする
   function setParamsToScopeFromUrl() {
     var p = getDecompressedParamsFromUrl();
     if (p) {
       $scope.p = p;
+      $scope.isPlayFromUrl = true;
     }
   }
   // URLに反映 [用途] 書いたMMLをURLコピペで共有できるようにする
@@ -112,7 +113,6 @@ function($scope, $location, $timeout, GeneratorService) {
   }catch(e){
     //fallback
     $scope.mmlFormat = "sionic";
-    $scope.generate();
   }
   $timeout(function() {
     setParamsToScopeFromUrl(); // [前提] $scopeのプロパティへ各functionを代入し終わっていること
