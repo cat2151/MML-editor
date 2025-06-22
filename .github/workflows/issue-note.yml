@@ -1,0 +1,50 @@
+name: Issue Note Generator
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-issue-note:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate issue note markdown
+        id: generate_md
+        run: |
+          mkdir -p issue-notes
+          echo "# issue ${{ github.event.issue.title }} #${{ github.event.issue.number }}" > issue-notes/${{ github.event.issue.number }}.md
+          echo "[issues #${{ github.event.issue.number }}](${{ github.event.issue.html_url }})" >> issue-notes/${{ github.event.issue.number }}.md
+          echo "" >> issue-notes/${{ github.event.issue.number }}.md
+          echo "${{ github.event.issue.body }}" >> issue-notes/${{ github.event.issue.number }}.md
+      - name: Commit and push note
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add issue-notes/${{ github.event.issue.number }}.md
+          git commit -m "Add issue note for #${{ github.event.issue.number }}"
+          git push
+
+      - name: Add link to issue note in issue body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const notePath = `issue-notes/${{ github.event.issue.number }}.md`;
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            const noteUrl = `https://github.com/${owner}/${repo}/blob/main/${notePath}`;
+            const newBody = `[issue-notes/${{ github.event.issue.number }}.md](${noteUrl})\n\n${{ github.event.issue.body }}`;
+            await github.rest.issues.update({
+              owner,
+              repo,
+              issue_number: context.issue.number,
+              body: newBody
+            });
