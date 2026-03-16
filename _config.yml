@@ -1,0 +1,8 @@
+title: "MML-editor"
+description: "MML-editor"
+theme: jekyll-theme-slate
+github:
+  is_project_page: true
+  repository_url: https://github.com/cat2151/MML-editor
+plugins:
+  - jekyll-sitemap
